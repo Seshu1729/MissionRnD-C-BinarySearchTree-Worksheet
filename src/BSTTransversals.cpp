@@ -23,13 +23,41 @@ struct node{
 };
 
 
-void inorder(struct node *root, int *arr){
-	
+int total_number_of_nodes(struct node *root)
+{
+	if (root == NULL)
+		return 0;
+	else
+		return 1 + total_number_of_nodes(root->left) + total_number_of_nodes(root->right);
 }
-void preorder(struct node *root, int *arr){
-	
+
+void inorder(struct node *root, int *arr)
+{
+	if (root != NULL && arr!=NULL)
+	{
+		inorder(root->left, arr);
+		*(arr + total_number_of_nodes(root->left)) = root->data;
+		inorder(root->right, (arr + 1 + total_number_of_nodes(root->left)));
+	}
 }
-void postorder(struct node *root, int *arr){
-	
+
+void preorder(struct node *root, int *arr)
+{
+	if (root != NULL && arr != NULL)
+	{
+		*arr = root->data;
+		preorder(root->left, ++arr);
+		preorder(root->right, (arr + total_number_of_nodes(root->left)));
+	}
+}
+
+void postorder(struct node *root, int *arr)
+{
+	if (root != NULL && arr != NULL)
+	{
+		postorder(root->left, arr);
+		postorder(root->right, (arr + total_number_of_nodes(root->left)));
+		*(arr + total_number_of_nodes(root->right) + total_number_of_nodes(root->left)) = root->data;
+	}
 }
 
