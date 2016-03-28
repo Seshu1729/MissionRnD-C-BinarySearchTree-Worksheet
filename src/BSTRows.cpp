@@ -23,15 +23,61 @@ Note : Return -1 for Invalid Cases .
 #include <stdlib.h>
 #include <stdio.h>
 
-struct node{
+struct node
+{
 	struct node * left;
 	int data;
 	struct node *right;
 };
 
+int number_of_nodes_in_tree(struct node *root)
+{
+	if(root==NULL)
+		return 0;
+	else
+		return 1 + number_of_nodes_in_tree(root->left) + number_of_nodes_in_tree(root->right);
+}
 
+void store_result_as_structure(struct node **result_as_structure,int total_number_of_nodes)
+{
+	int storing_index = 0,retriving_index = 0;
+	while(retriving_index<total_number_of_nodes)
+	{
+		if(result_as_structure[retriving_index]->right!=NULL)
+		{
+			storing_index++;
+			result_as_structure[storing_index] = result_as_structure[retriving_index]->right;
+		}
+		if(result_as_structure[retriving_index]->left!=NULL)
+		{
+			storing_index++;
+			result_as_structure[storing_index] = result_as_structure[retriving_index]->left;
+		}
+		retriving_index++;
+	}
+}
+
+int *extract_result_from_array_of_structures(struct node **result_as_structure,int total_number_of_nodes)
+{
+	int *result,index;
+	result = (int *)malloc(sizeof(int)*total_number_of_nodes);
+	for(index=0;index<total_number_of_nodes;index++)
+		result[index] = result_as_structure[index]->data;
+	return result;
+}
 
 int* BSTRighttoLeftRows(struct node* root)
 {
-    return NULL;
+	struct node **result_as_structure;
+	int total_number_of_nodes,*result;
+
+	if(root==NULL)
+		return NULL;
+
+	total_number_of_nodes = number_of_nodes_in_tree(root);
+	result_as_structure = (struct node **)malloc(sizeof(struct node *)*total_number_of_nodes);
+	result_as_structure[0] = root;
+	store_result_as_structure(result_as_structure,total_number_of_nodes);
+	result = extract_result_from_array_of_structures(result_as_structure,total_number_of_nodes);
+    return result;
 }
