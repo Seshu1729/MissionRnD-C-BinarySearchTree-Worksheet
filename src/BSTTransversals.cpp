@@ -78,8 +78,7 @@ void postorder(struct node *root, int *arr)
 /*
 
 //  METHOD 2:: 
-//  Using recursive function without using any helper functions
-//  It uses recursive function for calculating number of nodes in graph
+//  Using recursive function without using any helper functions Other Then total_number_of_nodes
 
 int total_number_of_nodes(struct node *root)
 {
