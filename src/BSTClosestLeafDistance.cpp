@@ -50,13 +50,11 @@ int min(int a,int b)
 int get_minimum_distance(struct node *root)
 {
     int min_height_of_left_subtree, min_height_of_right_subtree;
-    if(root==NULL)
+    if ((root->left == NULL && root->right==NULL)||root==NULL)
         return 0;
-    else if (root->left == NULL && root->right==NULL)
-        return 0;
-    else if(root->left==NULL)
+    else if(root->left==NULL && root->right!=NULL)
         return 1 + get_minimum_distance(root->right);
-    else if(root->right==NULL)
+    else if(root->right==NULL && root->left!=NULL)
         return 1 + get_minimum_distance(root->left);
     else
     {
