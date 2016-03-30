@@ -39,7 +39,7 @@ int index_of_second_number(int **Arr, int len)
     while (index--)
     {
       if (*Arr[index] < *Arr[index - 1])
-        return index;
+          return index;
     }
     return -1;
 }
@@ -51,13 +51,13 @@ int index_of_first_number(int **Arr, int len, int number)
     {
         mid = (start + end) / 2;
         if(mid==0)
-          break;
+            break;
         else if (*Arr[mid]>number && *Arr[mid - 1] <= number)
-          break;
+            break;
         else if (*Arr[mid]<number)
-          start = mid + 1;
+            start = mid + 1;
         else
-          end = mid - 1;
+            end = mid - 1;
     }
     return mid;
 }
@@ -104,8 +104,8 @@ void inorder_helper(struct node *root, int **arr, int *index)
 
 void inorder(struct node *root, int **arr)
 {
-  int index = 0;
-  inorder_helper(root,arr,&index);
+    int index = 0;
+    inorder_helper(root,arr,&index);
 }
 
 void fix_bst(struct node *root)
