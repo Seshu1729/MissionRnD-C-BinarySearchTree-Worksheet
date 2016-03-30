@@ -92,14 +92,20 @@ int total_number_of_nodes_in_tree(struct node *root)
         return 1 + total_number_of_nodes_in_tree(root->left) + total_number_of_nodes_in_tree(root->right);
 }
 
-void inorder(struct node *root, int **arr)
+void inorder_helper(struct node *root, int **arr, int *index)
 {
     if (root != NULL && arr!=NULL)
     {
-        inorder(root->left, arr);
-        *(arr + total_number_of_nodes_in_tree(root->left)) = &root->data;
-        inorder(root->right, (arr + 1 + total_number_of_nodes_in_tree(root->left)));
+        inorder_helper(root->left, arr,index);
+        arr[(*index)++] = &root->data;
+        inorder_helper(root->right, arr,index);
     }
+}
+
+void inorder(struct node *root, int **arr)
+{
+  int index = 0;
+  inorder_helper(root,arr,&index);
 }
 
 void fix_bst(struct node *root)

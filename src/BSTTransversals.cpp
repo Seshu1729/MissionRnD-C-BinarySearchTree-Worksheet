@@ -16,12 +16,70 @@ it and understand how testing works .
 
 #include <stdio.h>
 
-struct node{
+struct node
+{
 	struct node * left;
 	int data;
 	struct node *right;
 };
 
+//  METHOD 1:
+//  Using Helper Functions
+//  Better Apporach then Method 2
+
+void inorder_helper(struct node *root, int *arr, int *index)
+{
+    if (root != NULL && arr!=NULL)
+    {
+        inorder_helper(root->left, arr,index);
+        arr[(*index)++] = root->data;
+        inorder_helper(root->right, arr,index);
+    }
+}
+
+void inorder(struct node *root, int *arr)
+{
+	int index = 0;
+	inorder_helper(root,arr,&index);
+}
+
+void preorder_helper(struct node *root, int *arr, int *index)
+{
+    if (root != NULL && arr!=NULL)
+    {
+        arr[(*index)++] = root->data;
+        preorder_helper(root->left, arr,index);
+        preorder_helper(root->right, arr,index);
+    }
+}
+
+void preorder(struct node *root, int *arr)
+{
+	int index = 0;
+	preorder_helper(root,arr,&index);
+}
+
+void postorder_helper(struct node *root, int *arr, int *index)
+{
+    if (root != NULL && arr!=NULL)
+    {
+        postorder_helper(root->left, arr,index);
+        postorder_helper(root->right, arr,index);
+        arr[(*index)++] = root->data;
+    }
+}
+
+void postorder(struct node *root, int *arr)
+{
+	int index = 0;
+	postorder_helper(root,arr,&index);
+}
+
+/*
+
+//  METHOD 2:: 
+//  Using recursive function without using any helper functions
+//  It uses recursive function for calculating number of nodes in graph
 
 int total_number_of_nodes(struct node *root)
 {
@@ -61,3 +119,4 @@ void postorder(struct node *root, int *arr)
 	}
 }
 
+*/
